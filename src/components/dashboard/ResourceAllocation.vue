@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="row row-cards mt-0">
     <div class="col-lg-6 col-md-12">
       <div class="border card">
@@ -99,7 +100,7 @@
 
 
   <RecommendComp :isVisible="modalvisable" @close="modalvisable = false" :RecommendDataList="dumyData"> </RecommendComp>
-
+  </div>
 </template>
 
 <script>
@@ -112,7 +113,11 @@ export default {
     RecommendComp: RecommendComp,
   },
   props: {
-
+    majorEssentialList: {},  //전필
+    majorSelectiveList: {}, //전선
+    generalSelectiveList: {}, //교필
+    generalCoreList: {}, // 핵교
+    generalEssentialList: {}//교선
   },
   data() {
     return {

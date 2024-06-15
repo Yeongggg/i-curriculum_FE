@@ -5,26 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="white">
-    <meta name="theme-color" media="(prefers-color-scheme: <%= VUE_APP_CMP_THEME %>)" content="black">
+    <meta name="theme-color" media="(prefers-color-scheme: <%= VUE_APP_THEME %>)" content="black">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= VUE_APP_CMP_TITLE %></title>
+    <title><%= VUE_APP_TITLE %></title>
     
     <!-- CSS files -->
-    <link href="<%= VUE_APP_CMP_CDN_STATIC %>/dist/css/tabler.min.css?1674944402" rel="stylesheet"/>
-    <link href="<%= VUE_APP_CMP_CDN_STATIC %>/dist/css/tabler-flags.min.css?1674944402" rel="stylesheet"/>
-    <link href="<%= VUE_APP_CMP_CDN_STATIC %>/dist/css/tabler-payments.min.css?1674944402" rel="stylesheet"/>
-    <link href="<%= VUE_APP_CMP_CDN_STATIC %>/dist/css/tabler-vendors.min.css?1674944402" rel="stylesheet"/>
-    <link href="<%= VUE_APP_CMP_CDN_STATIC %>/dist/css/demo.min.css?1674944402" rel="stylesheet"/>
+    <link href="<%= VUE_APP_CDN_STATIC %>/dist/css/tabler.min.css?1674944402" rel="stylesheet"/>
+    <link href="<%= VUE_APP_CDN_STATIC %>/dist/css/tabler-flags.min.css?1674944402" rel="stylesheet"/>
+    <link href="<%= VUE_APP_CDN_STATIC %>/dist/css/tabler-payments.min.css?1674944402" rel="stylesheet"/>
+    <link href="<%= VUE_APP_CDN_STATIC %>/dist/css/tabler-vendors.min.css?1674944402" rel="stylesheet"/>
+    <link href="<%= VUE_APP_CDN_STATIC %>/dist/css/demo.min.css?1674944402" rel="stylesheet"/>
     <link href="css/cmp-style-01.css" rel="stylesheet" />
    
   </head>
-  <body data-bs-theme="<%= VUE_APP_CMP_THEME %>" >
+  <body data-bs-theme="<%= VUE_APP_THEME %>" >
     <div  id="app" class="page" ></div>
     <!-- Libs JS -->
     <!-- Tabler Core -->
-    <script src="<%= VUE_APP_CMP_CDN_STATIC %>/dist/js/tabler.min.js?1674944402" defer></script>
+    <script src="<%= VUE_APP_CDN_STATIC %>/dist/js/tabler.min.js?1674944402" defer></script>
     <script>
-      var newTheme = localStorage.getItem("theme")?localStorage.getItem("theme"):"<%= VUE_APP_CMP_THEME %>";
+      var newTheme = localStorage.getItem("theme")?localStorage.getItem("theme"):"<%= VUE_APP_THEME %>";
       window.document.body.setAttribute('data-bs-theme', newTheme);
     </script>
   </body>
