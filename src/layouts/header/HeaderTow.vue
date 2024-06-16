@@ -7,7 +7,7 @@
           aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- 회사 로고 -->
+        <!--  로고 -->
         <h1 class="navbar navbar-brand navbar-brand-autodark">
           <router-link class="nav-link" to="/dashboard">
             <img style="width: 160px;" :src="logo" />

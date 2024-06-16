@@ -63,22 +63,6 @@ export default {
     },
     userValidation: function () {
       this.updateUserDateStore(); 
-      
-      // const payload = localStorage.getItem('cmpUserData') ?? undefined;
-
-      // console.log("@ 석찬 ::: ", payload);
-      
-      // if (payload) {
-      //   // TODO 데이터 유효성 검사 - 석찬
-      //   const item = JSON.parse(payload);
-      //   console.log("@ seok ::: ", item);
-      //   this.updateUserDateStore(item); 
-      // } else {
-      //   this.$swal('세션이 만료 되었습니다..', '다시로그인 바랍니다. ', 'info');
-      //   this.$store.commit("deleteSession");
-      //   this.$router.push("/signin");
-      //   return false;
-      // }
     },
   },
 

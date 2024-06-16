@@ -58,6 +58,8 @@
 </template>
 
 <script>
+
+
 export default {
   inject: ['$axios'],
   data() {
@@ -75,12 +77,37 @@ export default {
   methods: {
     userValidation() {
       // 로그인 검증 로직 추가
+      
+      
       if (this.loginInfo.email && this.loginInfo.password) {
         // 예제에서는 간단히 조건을 체크하여 로그인 처리를 합니다.
         // 실제로는 백엔드와 통신하여 인증을 수행해야 합니다.
-        localStorage.setItem("isAuthenticated", true);
-        this.$store.commit('setUser', { username: this.loginInfo.email });
-        this.$router.push({ name: 'dashboard' });
+        //formdata생성
+        const frm = new FormData()
+        frm.append('username', this.loginInfo.email)
+        frm.append('password', this.loginInfo.password)
+        console.log(frm, "seok");
+        this.$axios.post('/login', frm, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+        ).then((res) => {
+          console.log(res.headers.authorization, "seok");
+
+          // 토큰을 LocalStorage에 저장
+          localStorage.setItem("authorization", res.headers.authorization);
+          localStorage.setItem("isAuthenticated", true);
+          localStorage.setItem("memberId", res.data.memberId);
+          console.log(res);
+          // this.$store.commit('setUser', { username: res.data.memberId });
+          console.log(localStorage)
+          
+          this.$router.push({ name: 'dashboard' });
+        })
+          .catch((err) => {
+            console.log(err);
+          })
       } else {
         alert('Please enter your username and password');
       }

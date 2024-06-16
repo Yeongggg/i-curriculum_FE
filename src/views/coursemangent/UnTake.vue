@@ -805,7 +805,9 @@
 
 import TakeBuket from './component/TakeBuket.vue'
 
+
 export default {
+    inject:['$axios'],
     components: {
         TakeBuket: TakeBuket,
     },
@@ -819,54 +821,7 @@ export default {
             showShortTable: true,
             showLongTable: false,
             // 조회해서 가져올 데이터
-            unTakeList: [
-                {
-                    // hak : '', // 학수번호
-                    // name : '', // 과목명
-                    // code : '', // 영역
-                    // grade:'', // 학점
-                    // year:'', // 이수학기
-                    // people:'', // 수강인원
-                    hak: '1234', // 학수번호
-                    name: '아아아', // 과목명
-                    code: '전필', // 영역
-                    grade: 3, // 학점
-                    year: 4, // 이수학기
-                    people: 234, // 수강인원
-                },
-                {
-                    hak: '12314', // 학수번호
-                    name: '12334', // 과목명
-                    code: '전필', // 영역
-                    grade: 2, // 학점
-                    year: 7, // 이수학기
-                    people: 234, // 수강인원   
-                },
-                {
-                    hak: '444444', // 학수번호
-                    name: '444444', // 과목명
-                    code: '전필', // 영역
-                    grade: 4, // 학점
-                    year: 7, // 이수학기
-                    people: 234, // 수강인원
-                },
-                {
-                    hak: '11111', // 학수번호
-                    name: '11111', // 과목명
-                    code: '전필', // 영역
-                    grade: 3, // 학점
-                    year: 1, // 이수학기
-                    people: 7, // 수강인원
-                },
-                {
-                    hak: '1234', // 학수번호
-                    name: '아아아', // 과목명
-                    code: '전필', // 영역
-                    grade: 3, // 학점
-                    year: 8, // 이수학기
-                    people: 8, // 수강인원
-                }
-            ],
+            unTakeList: [],
             searchOptions: { // 검색 옵션 객체
 
             },
@@ -875,14 +830,40 @@ export default {
 
         }
     },
-    mounteds() {
+    mounted() {
+        console.log('mounted 호출됨');
         this.fetchData();
     },
     methods: {
         fetchData() { // 데이터를 가져오는 함수
-            this.onLoading=true;
-            // todo : 검색 옵션을 가지고 미이수 과목을 조회하는 api를 사용
-            this.onLoading=false;
+            this.onLoading = true;
+            console.log('fetchData 호출됨'); // 로그 추가
+            this.$axios.get('/v1/courses/untake', {
+                params: {
+                    memberId: 1 // TODO : 실제 사용자 ID로 변경
+                }
+            })
+            .then(response => { 
+                console.log('응답 받음:', response.data);
+                const responseList = response.data.result.untakenCourseDTOList;
+                this.unTakeList = responseList.map(item => ({
+                    hak: item.courseCode, // 학수번호
+                    courseId: item.courseId,
+                    name: item.courseName, // 과목명
+                    code: item.categoryName, // 영역
+                    grade: item.credit, // 학점
+                    year: item.level, // 이수학기
+                    people: item.takenNumber // 수강인원
+                }));
+                console.log("here", this.unTakeList);
+            })
+            .catch(error => {
+                console.error('오류 발생:', error); // 오류 로그 추가
+                this.$swal("데이터를 가져오는데 실패했습니다.", '', "error");
+            })
+            .finally(() => {
+                this.onLoading = false;
+            });
         },
         toggleSidebar() {
             this.isSidebarOpen = !this.isSidebarOpen;
@@ -901,20 +882,55 @@ export default {
             this.showLongTable = !this.showLongTable;
             this.showShortTable = !this.showShortTable;
         },
-        AddTake() { // 이수내역으로 List를 보내는 함수
+        AddTake() {
+        // MyBucketList를 CreateTakeDTO 형식으로 변환
+        const createTakeDTOList = this.MyBucketList.map(item => {
+                return {
+                    courseId: Number(item.courseId), // 실제 데이터에서 적절한 필드를 매핑하세요
+                    takenTerm: Number(item.myYear), // 이수학기
+                    grade: String(item.myGrade), // 성적 (문자열로 변환)
+                    category: String(item.code) // 영역
+                };
+            });
+
+        // CreateTakeListDTO 형식으로 데이터 래핑
+        const requestData = {
+            createTakeDTOList: createTakeDTOList
+        };
+
+        this.$axios.post('/v1/courses/take/new', requestData, {
+            params: {
+                memberId: 1 // TODO: 실제 사용자 ID로 변경
+            }
+        })
+        .then(response => {
+            console.log('응답 받음:', response.data); 
             this.$swal("이수내역 추가완료", '', 'success')
                 .then((val) => {
                     if (val.isConfirmed) {
-                        // todo : 추가한 이수과목 넣는 api 사용
-
-                        this.$router.push('/MyTake')
+                        this.$router.push('/MyTake');
                     }
-                })
-
-        },
+                });
+        })
+        .catch(error => {
+            console.error('오류 발생:', error); 
+            this.$swal("이수내역 추가에 실패했습니다.", '', "error");
+        });
+    }
+,
         addItem(item) { // 장바구니에 추가하는 함수
             const addItem = item;
             this.MyBucketList.push(addItem)
+            this.MyBucketList.forEach((item, index) => {
+            console.log(`Item ${index + 1}:`);
+            console.log(`  courseId: ${item.courseId}`);
+            console.log(`  hak: ${item.hak}`);
+            console.log(`  name: ${item.name}`);
+            console.log(`  code: ${item.code}`);
+            console.log(`  myGrade: ${item.myGrade}`);
+            console.log(`  myYear: ${item.myYear}`);
+        });
+
             this.$refs.updateModalComponent.closeModal();
             this.$swal("장바구니 추가완료", '', "success");
         },

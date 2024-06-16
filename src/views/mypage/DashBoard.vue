@@ -266,9 +266,10 @@ export default {
     // todo : 데이터 불러오기 가능
     fetchData() {
       this.onLoading = true;
+      const userId=localStorage.getItem('memberId');
       this.$axios.get('/v1/dashboard', {
         params: {
-          memberId: 1,  // todo 현재 학생 성적으로 바꿔야함
+          memberId: userId,  
         }
       }).then((res) => {
         console.log(res.data.result);

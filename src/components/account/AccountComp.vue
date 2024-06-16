@@ -47,8 +47,7 @@
   </template>
   
   <script>
-  // import axios from "axios";
-  // const cmpUserData = JSON.parse(localStorage.getItem("cmpUserData")) ?? [];
+  
   import ProfileComp from "./ProfileComp.vue";
   
   

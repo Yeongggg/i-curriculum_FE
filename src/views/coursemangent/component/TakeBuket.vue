@@ -40,14 +40,35 @@
                                             v-model="updateData.name" readonly />
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">영역</label>
-                                        <input type="text" class="form-control" name="example-password-input"
-                                            v-model="updateData.code" readonly />
+                                        <div class="form-label">영역</div>
+                                        <select v-model="updateData.code" class="form-select">
+                                            <option value="전공필수">전공필수</option>
+                                            <option value="전공선택">전공선택</option>
+                                            <option value="교양필수">교양필수</option>
+                                            <option value="교양선택">교양선택</option>
+                                            <option value="핵심교양 1">핵심교양 1</option>
+                                            <option value="핵심교양 2">핵심교양 2</option>
+                                            <option value="핵심교양 3">핵심교양 3</option>
+                                            <option value="핵심교양 4">핵심교양 4</option>
+                                            <option value="핵심교양 5">핵심교양 5</option>
+                                            <option value="핵심교양 6">핵심교양 6</option>
+                                            <option value="창의영역">창의영역</option>
+                                        </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">학점</label>
-                                        <input type="text" class="form-control" name="example-password-input"
-                                            v-model="updateData.myGrade" placeholder="학점을 입력해주세요" />
+                                        <div class="form-label">학점</div>
+                                        <select v-model="updateData.myGrade" class="form-select">
+                                            <option value="A+">A+</option>
+                                            <option value="A0">A0</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B0">B0</option>
+                                            <option value="C+">C+</option>
+                                            <option value="C0">C0</option>
+                                            <option value="D+">D+</option>
+                                            <option value="D0">D0</option>
+                                            <option value="P">P</option>
+                                            <option value="F">F</option>
+                                        </select>
                                     </div>
                                     <div class="mb-3">
                                         <div class="form-label">이수학기</div>
@@ -55,11 +76,11 @@
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
-                                            <option value="3">4</option>
-                                            <option value="3">5</option>
-                                            <option value="3">6</option>
-                                            <option value="3">7</option>
-                                            <option value="3">8</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
                                         </select>
                                     </div>
 
