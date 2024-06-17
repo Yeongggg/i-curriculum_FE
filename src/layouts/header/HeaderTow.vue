@@ -145,7 +145,7 @@
 
                       <router-link class="dropdown-item" to="/" title="이수체계도">
                         <span
-                          class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                          class="nav-link-icon d-md-none d-lg-inline-block">
                           <SvgIcon iconId="team" height="24" width="24" />
                         </span>
                         <span class="nav-link-title"> 이수체계도 </span>
