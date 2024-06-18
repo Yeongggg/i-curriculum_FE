@@ -37,11 +37,12 @@ module.exports = defineConfig({
       },
       // 프록시 요청을 보낼 api의 시작 부분 
       '/v1': {
-        target: `http://13.214.220.207:8080/api`, // 프록시할 대상 서버의 주소
+        target: `http://47.129.11.199:8080`, // 프록시할 대상 서버의 주소
         changeOrigin: true,
+        pathRewrite: { '^/v1': '/api/v1' },
       },
       '/login': {
-        target: `http://13.214.220.207:8080`, // 프록시할 대상 서버의 주소
+        target: `http://47.129.11.199:8080`, // 프록시할 대상 서버의 주소
 
         changeOrigin: true,
       }
